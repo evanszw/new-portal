@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - View Results</title>
+    <style>
+        /* Responsive and container styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #68ade9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .results-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Dashboard - View Results</h1>
+
+    <div class="results-container">
+        <table id="resultsTable">
+            <tr>
+                <th>Homework Title</th>
+                <th>Feedback</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        const currentStudent = "takunda mbongoro"; // Replace with the logged-in student's name
+
+        const submissions = [
+            { studentName: "takudzwa evans", title: "Math Homework", feedback: "Great job on the calculations!" },
+            { studentName: "takudzwa evans", title: "English Essay", feedback: "Well-written essay!" },
+            { studentName: "takunda mbongoro", title: "Science Project", feedback: "Good research work!" },
+            { studentName: "thembalethu zizi", title: "English Essay", feedback: "Well-written essay!" }
+        ];
+
+        function renderResults() {
+            const resultsTable = document.getElementById("resultsTable");
+
+            submissions.forEach(submission => {
+                if (submission.studentName === currentStudent && submission.feedback) {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${submission.title}</td>
+                        <td>${submission.feedback}</td>
+                    `;
+
+                    resultsTable.appendChild(row);
+                }
+            });
+        }
+
+        renderResults();
+    </script>
+
+</body>
+</html>

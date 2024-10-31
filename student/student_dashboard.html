@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+    <Head>
+        <title>Student Dashboard</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+        
+
+
+
+
+
+
+
+
+    </Head>
+
+
+
+
+
+
+    <style>
+
+    .root{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #81d7ec;
+    }
+    
+    /* Top Header Styles */
+    
+    .top-header {
+        background: #03a9f4;
+        padding: 5px 0;
+        border-bottom: 5px solid #e90606;
+        width: 100vw;
+        margin: 0;
+        transition: 0.2s ease-in-out;
+    }
+    
+    /* Container Styles */
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .footer{
+  padding:20px;
+  margin-top:20px;
+  color:#ffffff;
+  background-color:#e8491d;
+  text-align: center;
+}
+    
+    /* Header Menu Styles */
+    
+    .header-menu {
+        position: relative;
+        
+    }
+    
+    
+    .main-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end; /* Align to right */
+    align-items: center;
+    transition: 0.5s ease-in-out;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .main-menu {
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 60px; /* Adjust based on header height */
+        right: 0;
+        background-color: #f7f7f7;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s, visibility 0.5s;
+    }
+}
+
+/* Toggle menu on smaller screens */
+@media (max-width: 992px) {
+    .main-menu.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.main-menu li {
+    margin-right: 20px;
+}
+
+@media (max-width: 992px) {
+    .main-menu li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+.main-menu a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+}
+
+.main-menu a:hover {
+    color: #1783c7;
+}
+
+/* Mobile menu toggle button */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    .menu-toggle {
+        display: block;
+        position: relative;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+}
+
+.menu-toggle:hover {
+    color: #1783c7;
+}
+    
+    .main-menu a {
+        font-weight: 500;
+        color: #cc7860;
+        font-size: 15px;
+        text-decoration: none;
+            text-size-adjust: 15;
+    }
+    
+    .main-menu li {
+        float: left;
+        padding: 12px 15px;
+        margin: 0 10px;
+        transition: 0.5s ease-in-out;
+    }
+    
+    /* Slider Styles */
+    
+    .slider-width {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    
+    /* Margin Top 50 */
+    
+    .margin-top-50 {
+        margin-top: 50px;
+    }
+    
+    /* Width 33% */
+    
+    .width-33 {
+        width: 33%;
+        float: left;
+    }
+    
+    /* Latest News Styles */
+    
+    .latest-news {
+        margin-left: 10px;
+        margin-right: 10px;
+        background: #cc7860;
+        padding: 20px;
+        height: 350px;
+        margin-bottom: 30px;
+        transition: 1s ease-in-out;
+    }
+    
+    .heading-sect {
+        width: 100%;
+        float: left;
+        border-bottom: 1px solid #cfcfcf;
+        margin: 0px;
+        margin-bottom: 15px;
+        border: 1px solid #cfcfcf;
+        padding-top: 15px;
+        padding-left: 15px;
+        background: #0045d9;
+        color: white;
+    }
+    
+    .head-title {
+        margin: 0px;
+        padding: 0px;
+        font-size: 16px;
+        font-weight: 600;
+        padding-bottom: 5px;
+    }
+    
+    .latest-news-ul {
+        padding: 0px;
+        list-style: none;
+        line-height: 40px;
+    }
+    
+    /* Event List Styles */
+    
+    .event-list {
+        margin-left: 10px;
+        margin-right: 10px;
+        background: #cc7860;
+        padding: 20px;
+        height: 350px;
+        margin-bottom: 30px;
+        transition: 0.5s ease-in-out;
+    }
+    
+    .upcoming-event-list {
+        padding: 0px;
+        list-style: none;
+    }
+    
+    .upcoming-event-list li {
+        width: 100%;
+        float: left;
+        margin-bottom: 15px;
+    }
+    
+    .event-date {
+        background: #03a9f4;
+        width: 30px;
+        float: left;
+        text-align: center;
+        font-size: 14px;
+        color: #217753;
+        padding: 8px;
+        margin-right: 10px;
+    }
+    
+    /* Notice Board Styles */
+    
+    .notice-board {
+        margin-left: 10px;
+        margin-right: 10px;
+        background: #cc7860;
+        padding: 20px;
+        height: 350px;
+        margin-bottom: 30px;
+        transition: 0.5s ease-in-out;
+    }
+    
+    .notice-board-list {
+        padding: 0px;
+        list-style: none;
+        line-height: 40px;
+    }
+    
+    .notice-board-list li {
+        width: 100%;
+        float: left;
+        margin-bottom: 15px;
+    }
+
+    
+    /* Media Queries for Responsiveness */
+    
+    @media (max-width: 1200px) {
+        .container {
+            max-width: 90%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .logo img {
+            max-height: 80px;
+        }
+        .main-menu {
+            float: none;
+            margin-top: 10px;
+        }
+        .main-menu li {
+            padding: 8px 10px;
+        }
+        .latest-news, .event-list, .notice-board {
+            height: auto;
+            padding: 15px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .logo {
+            width: 100%;
+            text-align: center;
+        }
+        .logo img {
+            max-height: 60px;
+            margin: 0 auto;
+        }
+        .main-menu {
+            display: block;
+        }
+        .main-menu li {
+            float: none;
+            padding: 5px 0;
+        }
+        .latest-news, .event-list, .notice-board {
+            margin-left: 0;
+            margin-right: 0;
+            padding: 10px;
+        }
+    }
+    
+    @media (max-width: 320px) {
+        .logo img {
+            max-height: 40px;
+        }
+        .main-menu li {
+            padding: 3px 0;
+        }
+        .latest-news, .event-list, .notice-board {
+            padding: 5px;
+        }
+    }
+
+
+</style>
+
+    <body>
+        <div class="width-100 top-header">
+            <div class="container">
+                <div class="width-100">
+                    <b class="news-list"> News :</b>
+                    <marquee class="headqoute"> Mount Sunset : Introduction of a new Online  education portal to drive the school into the future</marquee>
+                </div>
+            </div>
+        </div>
+        <div class="width-100 header-menu">
+            <div class="container">
+                
+                <ul class="main-menu">
+                    <li><a href="student_dashboard.html">Home</a> </li>
+                    <li><a href="view_home_work.html">Homework</a> </li>
+                    <li><a href="aboutus.html">library</a> </li>
+                    <li><a href="events_student.html">Events and Activities</a> </li>
+                    <li><a href="student_HW_results.html">H/W Results</a> </li>   
+                    <li><a href="show_results.html">Report</a> </li>
+                    
+                </ul>
+            </div>
+        </div>
+<div class="width-100">
+    <img class="slider-width" src="slide.jpg">
+</div>
+        
+ <div class="width-100 margin-top-50">
+    <div class="continer">
+        <div class="width-33">
+            <div class="latest-news">
+                <div class="heading-sect">
+                    <h3 class="head-title">Student Fee Details</h3>
+                </div>
+                
+                    <ul class="latest-news-ul">
+                        
+        <div id="student-info">
+            <h2 id="student-name-display">     : <span id="student-name"></span></h2>
+            <p>Total Fees: <span id="total-fees"></span></p>
+            <p>Fees Paid: <span id="fees-paid"></span></p>
+            <p>Fees Owed: <span id="fees-owed"></span></p>
+            <p id="status-message" class="status"></p>
+        </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+    const name = localStorage.getItem('studentName');
+    const totalFees = parseFloat(localStorage.getItem('totalFees'));
+    const feesPaid = parseFloat(localStorage.getItem('feesPaid'));
+    const feesOwed = parseFloat(localStorage.getItem('feesOwed'));
+
+    // Display the student name and fees information
+    document.getElementById('student-name').innerText = name;
+    document.getElementById('total-fees').innerText = totalFees.toFixed(2);
+    document.getElementById('fees-paid').innerText = feesPaid.toFixed(2);
+    document.getElementById('fees-owed').innerText = feesOwed.toFixed(2);
+
+    // Set the status message
+    const statusMessage = document.getElementById('status-message');
+    if (feesPaid < totalFees / 2) {
+        statusMessage.innerText = 'Less than half paid, please pay full fees in time.';
+        statusMessage.classList.add('red');
+    } else {
+        statusMessage.innerText = 'Thank you for your payment!';
+        statusMessage.classList.add('green');
+    }
+});
+
+        </script>
+    </body>
+    </html>
+    
+                    </ul>
+                </marquee>
+            </div>
+        </div>
+    </div>
+    <div class="width-33">
+        <div class="event-list">
+            <div class="heading-sect">
+                <h3 class="head-title">Upcoming Events
+                </h3>
+        </div>
+        
+            <ul class="upcoming-event-ul">
+                <li>31 November Fees due date</li>
+                <li>4 Decemer AGM</li>
+                <li>10 December Basketball match</li>
+                <li>7 January Opening of School</li>
+                <li>20 January Visting Day</li>
+                <li>4 March Examination writting</li>
+            </ul>
+        </marquee>
+ </div> 
+ </div> 
+ <div class="width-33">
+    <div class="notice-board">
+        <div class="heading-sect">
+            <h3 class="head-title"> Notice Board</h3>
+        </div>
+        <ul class="notice-board-list">
+            <li>This is the new Notice Section</li>
+            <li>PLEASE NOTE THAT THE LIBRARY ON PORTAL IS NOT YET FULLY FUNCTIONAL</li>
+            
+
+        </ul>
+    </div>
+ </div>
+ </div>
+ 
+</class>
+ <script>
+    const menuToggle = document.getElementById('menu-toggle');
+const mainMenu = document.getElementById('main-menu');
+
+menuToggle.addEventListener('click', () => {
+    mainMenu.classList.toggle('active');
+});
+ </script>
+    </body>
+</html>

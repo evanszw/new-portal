@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - Grade Submissions</title>
+    <style>
+        /* Basic responsive styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .submission-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .feedback-input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        .submit-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Teacher Dashboard - Grade Submissions</h1>
+
+    <div class="submission-container">
+        <table id="submissionsTable">
+            <tr>
+                <th>Student Name</th>
+                <th>Homework Title</th>
+                <th>Submission</th>
+                <th>Feedback</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        const users = {
+            "takudzwa evans": { role: 'student', password: 'password1' },
+            "takunda mbongoro": { role: 'student', password: 'password2' },
+            "thembalethu zizi": { role: 'student', password: 'password3' },
+            "tanatwa madungwe": { role: 'student', password: 'studentpass4' },
+            "Student Five": { role: 'student', password: 'studentpass5' },
+            "Student Six": { role: 'student', password: 'studentpass6' },
+            "Student Seven": { role: 'student', password: 'studentpass7' },
+            "Student Eight": { role: 'student', password: 'studentpass8' },
+            admin: { role: 'admin', password: 'adminpassword' },
+            parent1: { role: 'parent', password: 'parentpass' },
+            teacher1: { role: 'teacher', password: 'teacherpass' }
+        };
+
+        const submissions = [
+            { studentName: "takudzwa evans", title: "Math Homework", document: "math_homework.pdf", feedback: "" },
+            { studentName: "takunda mbongoro", title: "Science Project", document: "science_project.docx", feedback: "" },
+            { studentName: "thembalethu zizi", title: "English Essay", document: "english_essay.docx", feedback: "" }
+        ];
+
+        function renderSubmissions() {
+            const submissionsTable = document.getElementById("submissionsTable");
+
+            submissions.forEach((submission, index) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${submission.studentName}</td>
+                    <td>${submission.title}</td>
+                    <td><a href="uploads/${submission.document}" target="_blank">Download</a></td>
+                    <td>
+                        <textarea class="feedback-input" id="feedback-${index}" placeholder="Enter feedback"></textarea>
+                        <button class="submit-button" onclick="sendFeedback(${index})">Send Feedback</button>
+                    </td>
+                `;
+
+                submissionsTable.appendChild(row);
+            });
+        }
+
+        function sendFeedback(index) {
+            const feedbackInput = document.getElementById(`feedback-${index}`);
+            submissions[index].feedback = feedbackInput.value;
+
+            alert(`Feedback sent to ${submissions[index].studentName}!`);
+        }
+
+        renderSubmissions();
+    </script>
+
+</body>
+</html>

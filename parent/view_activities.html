@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primary School Activities and Events</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3184f16b;
+    margin: 0;
+    padding: 20px;
+}
+.site-header {
+    background-color: #1783c7;
+    color: #e8491d;
+    padding: 20px;
+    text-align: center;
+}
+
+.site-nav {
+    background-color: #f83c1b;
+    padding: 10px;
+}
+
+.site-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.site-nav li {
+    margin-right: 20px;
+}
+
+.site-nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.site-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+section {
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+#upcoming-events-list, #past-activities-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.footer{
+  padding:20px;
+  margin-top:20px;
+  color:#ffffff;
+  background-color:#e8491d;
+  text-align: center;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .site-content {
+        padding: 10px;
+    }
+    section {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    #gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+    </style>
+
+<header class="site-header">
+    <h1>Primary School Activities and Events</h1>
+</header>
+
+<nav class="site-nav">
+    <ul>
+        <li><a href="#upcoming-events">Upcoming Events</a></li>
+        <li><a href="#past-activities">Past Activities</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+    </ul>
+</nav>
+
+<main class="site-content">
+    <section id="upcoming-events">
+        <h2>Upcoming Events</h2>
+        <ul id="upcoming-events-list"></ul>
+    </section>
+
+    <section id="past-activities">
+        <h2>Past Activities</h2>
+        <ul id="past-activities-list"></ul>
+    </section>
+
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div id="gallery-grid"></div>
+    </section>
+</main>
+
+
+<footer> <p>&copy; 2024 Mount Sunset Primary school. All rights reserved.</p>
+        
+</footer>
+<script>
+
+// Mock data (replace with actual data fetching)
+const upcomingEvents = [
+    { title: "School Play", date: "2024-03-15" },
+    { title: "Science Fair", date: "2024-03-22" },
+    { title: "Sports Day", date: "2024-03-29" }
+];
+
+const pastActivities = [
+    { title: "School Trip", date: "2024-02-20" },
+    { title: "Art Competition", date: "2024-02-15" },
+    { title: "Music Festival", date: "2024-02-10" }
+];
+
+const galleryImages = [
+    "image1.jpg", "image2.jpg", "image3.jpg",
+    "image8.jpg", "image5.jpg", "image6.jpg"
+];
+
+// Render upcoming events
+function renderUpcomingEvents(events) {
+    const upcomingEventsList = document.getElementById('upcoming-events-list');
+    events.forEach(event => {
+        const html = `<li>${event.title} - ${event.date}</li>`;
+        upcomingEventsList.insertAdjacentHTML('beforeend', html);
+    });
+}
+
+// Render past activities
+function renderPastActivities(activities) {
+    const pastActivitiesList = document.getElementById('past-activities-list');
+    activities.forEach(activity => {
+        const html = `<li>${activity.title} - ${activity.date}</li>`;
+        pastActivitiesList.insertAdjacentHTML('beforeend', html);
+    });
+}
+
+// Render gallery
+function renderGallery(images) {
+    const galleryGrid = document.getElementById('gallery-grid');
+    images.forEach(image => {
+        const html = `<img src='${image}' alt='Gallery Image' class='gallery-image'>`;
+        galleryGrid.insertAdjacentHTML('beforeend', html);
+    });
+}
+
+renderUpcomingEvents(upcomingEvents);
+renderPastActivities(pastActivities);
+renderGallery(galleryImages);
+
+</script>   
+</body>
+</html>

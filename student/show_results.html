@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Academic Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #59a3ce;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #ffffff;
+        }
+
+        #results-table {
+            width: 100%;
+            max-width: 900px;
+            border-collapse: collapse;
+            background-color: #f8f8f8;
+        }
+
+        #results-table th, #results-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #results-table th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .footer {
+            padding: 20px;
+            margin-top: 20px;
+            color: #ffffff;
+            background-color: #e8491d;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            #results-table {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Student Results</h1>
+
+<table id="results-table">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Maths Score</th>
+            <th>Maths Comments</th>
+            <th>English Score</th>
+            <th>English Comments</th>
+            <th>Shona Score</th>
+            <th>Shona Comments</th>
+            <th>General Paper Score</th>
+            <th>General Paper Comments</th>
+        </tr>
+    </thead>
+    <tbody id="results-tbody"></tbody>
+</table>
+
+<footer class="footer">
+    <p>&copy; 2024 Mount Sunset Primary School. All rights reserved.</p>
+</footer>
+
+<script>
+    // User data with passwords
+    const users = {
+        "takudzwa evans": { role: 'student', password: 'password1' },
+        "takunda mbongoro": { role: 'student', password: 'password2' },
+        "thembalethu zizi": { role: 'student', password: 'password3' },
+        "tanatwa madungwe": { role: 'student', password: 'studentpass4' },
+        "Student Five": { role: 'student', password: 'studentpass5' },
+        "Student Six": { role: 'student', password: 'studentpass6' },
+        "Student Seven": { role: 'student', password: 'studentpass7' },
+        "Student Eight": { role: 'student', password: 'studentpass8' },
+        admin: { role: 'admin', password: 'adminpassword' },
+        parent1: { role: 'parent', password: 'parentpass' },
+        teacher1: { role: 'teacher', password: 'teacherpass' }
+    };
+
+    // Mock data (example student results)
+    const studentResults = [
+        {
+            student_name: "takudzwa evans",
+            maths_score: 85,
+            maths_comments: "Excellent",
+            english_score: 90,
+            english_comments: "Outstanding",
+            shona_score: 78,
+            shona_comments: "Good",
+            general_paper_score: 92,
+            general_paper_comments: "Exceptional"
+        },
+        {
+            student_name: "takunda mbongoro",
+            maths_score: 70,
+            maths_comments: "Fair",
+            english_score: 85,
+            english_comments: "Very Good",
+            shona_score: 65,
+            shona_comments: "Pass",
+            general_paper_score: 88,
+            general_paper_comments: "Very Good"
+        },
+        {
+            student_name: "takunda mbongoro",
+            maths_score: 70,
+            maths_comments: "Fair",
+            english_score: 85,
+            english_comments: "Very Good",
+            shona_score: 65,
+            shona_comments: "Pass",
+            general_paper_score: 88,
+            general_paper_comments: "Very Good"
+        },
+        // other students' results here...
+    ];
+
+    // Function to fetch results (replace with actual API/AJAX call if needed)
+    async function fetchResults() {
+        return studentResults;
+    }
+
+    // Function to log in (mockup, not secure, replace with server-side authentication for real application)
+    function login(username, password) {
+        const user = users[username];
+        if (user && user.password === password) {
+            return user;
+        } else {
+            alert('Invalid username or password');
+            return null;
+        }
+    }
+
+    // Simulated user login
+    const currentUser = login('takudzwa evans', 'password1'); // Simulate login with takudzwa evans
+
+    // Render results for logged-in student
+    async function renderResults() {
+        const resultsTbody = document.getElementById('results-tbody');
+        const results = await fetchResults();
+
+        if (currentUser && currentUser.role === 'student') {
+            const studentResults = results.filter(result => result.student_name === currentUser.username);
+
+            if (studentResults.length > 0) {
+                studentResults.forEach(result => {
+                    const row = `
+                        <tr>
+                            <td>${result.student_name}</td>
+                            <td>${result.maths_score}</td>
+                            <td>${result.maths_comments}</td>
+                            <td>${result.english_score}</td>
+                            <td>${result.english_comments}</td>
+                            <td>${result.shona_score}</td>
+                            <td>${result.shona_comments}</td>
+                            <td>${result.general_paper_score}</td>
+                            <td>${result.general_paper_comments}</td>
+                        </tr>
+                    `;
+                    resultsTbody.insertAdjacentHTML('beforeend', row);
+                });
+            } else {
+                resultsTbody.innerHTML = "<tr><td colspan='9'>No results available for this student.</td></tr>";
+            }
+        } else {
+            resultsTbody.innerHTML = "<tr><td colspan='9'>Access denied. Please log in as a student to view results.</td></tr>";
+        }
+    }
+
+    renderResults();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Child's Grades and Reports</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #30bff8;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.grades-table th, .grades-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.grades-table th {
+    background-color: #f2f2f2;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .grades-table {
+        font-size: 14px;
+    }
+}
+</style>
+<h1>View Child's Grades and Reports</h1>
+
+<div class="error-message" id="error-message"></div>
+
+<form id="grades-form">
+    <label for="child_name">Enter Child's Name:</label>
+    <input type="text" id="child_name" name="child_name" required>
+    <input type="submit" value="View Grades">
+</form>
+
+<div class="grades-container" id="grades-container"></div>
+
+<script>
+    // Mock data (replace with actual data fetching)
+const studentGrades = {
+    "John Doe": [
+        { subject: "Math", grade: "A", comments: "Excellent", report_date: "2024-03-11" },
+        { subject: "Science", grade: "B", comments: "Good", report_date: "2024-03-12" },
+        { subject: "English", grade: "A", comments: "Outstanding", report_date: "2024-03-13" }
+    ],
+    "Jane Doe": [
+        { subject: "Math", grade: "B", comments: "Fair", report_date: "2024-03-11" },
+        { subject: "Science", grade: "A", comments: "Excellent", report_date: "2024-03-12" },
+        { subject: "English", grade: "B", comments: "Good", report_date: "2024-03-13" }
+    ]
+};
+
+// Function to fetch grades data (replace with API/AJAX call)
+async function fetchGrades(childName) {
+    return studentGrades[childName] || []; // Replace with actual data
+}
+
+// Render grades table
+async function renderGrades(childName) {
+    const errorElement = document.getElementById('error-message');
+    const gradesContainer = document.getElementById('grades-container');
+    const grades = await fetchGrades(childName);
+
+    if (grades.length > 0) {
+        const html = `
+            <h2>Grades and Reports</h2>
+            <table class="grades-table">
+                <tr>
+                    <th>Subject</th>
+                    <th>Grade</th>
+                    <th>Comments</th>
+                    <th>Report Date</th>
+                </tr>
+                ${grades.map(grade => `
+                    <tr>
+                        <td>${grade.subject}</td>
+                        <td>${grade.grade}</td>
+                        <td>${grade.comments}</td>
+                        <td>${grade.report_date}</td>
+                    </tr>
+                `).join('')}
+            </table>
+        `;
+        gradesContainer.innerHTML = html;
+        errorElement.innerHTML = "";
+    } else {
+        gradesContainer.innerHTML = "";
+        errorElement.innerHTML = `No student found with the name: ${childName}`;
+    }
+}
+
+document.getElementById('grades-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const childName = document.getElementById('child_name').value.trim();
+    renderGrades(childName);
+});
+</script>
+
+</body>
+</html>

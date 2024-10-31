@@ -1,0 +1,82 @@
+<body>
+    <div class="dashboard">
+        <header class="fees-structure">
+            <h2>Fees Structure</h2>
+            <table>
+                <tr>
+                    <th>Category</th>
+                    <th>Amount (USD)</th>
+                </tr>
+                <tr>
+                    <td>Registration Fee</td>
+                    <td>50</td>
+                </tr>
+                <tr>
+                    <td>Termly Fee</td>
+                    <td>500</td>
+                </tr>
+                <tr>
+                    <td>Annual Fee</td>
+                    <td>1,500</td>
+                </tr>
+                <tr>
+                    <td>Extra Curricular Activities</td>
+                    <td>100</td>
+                </tr>
+            </table>
+        </header>
+        <style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #4d87df;
+    margin: 0;
+    padding: 20px;
+}
+
+.fees-structure {
+    background-color: #1783c7;
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fees-structure table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.fees-structure th, .fees-structure td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.fees-structure th {
+    background-color: #34495e;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .fees-structure {
+        padding: 10px;
+    }
+    .fees-structure table {
+        width: 100%;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .fees-structure table {
+        font-size: 14px;
+    }
+}
+        </style>
+</body>

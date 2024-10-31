@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #62b5e9; /* Deep blue */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #e8491d;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #schoolwork-table {
+            width: 100%;
+            max-width: 800px; /* Maximum width for larger screens */
+            border-collapse: collapse;
+            background-color: #ADD8E6; /* Light blue */
+            margin-bottom: 20px;
+            border-radius: 8px; /* Rounded corners */
+            overflow: hidden; /* Rounded corners effect */
+        }
+
+        #schoolwork-table th,
+        #schoolwork-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #schoolwork-table th {
+            background-color: #e8491d; /* Bright blue */
+            color: white; /* White text for better readability */
+        }
+
+        .submission-container {
+            background-color: #f06b12;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto; /* Center container */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #22a8e6;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #d35400;
+        }
+
+        .success-message {
+            color: green;
+            margin-top: 15px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px; /* Smaller heading on mobile */
+            }
+
+            #schoolwork-table {
+                font-size: 14px; /* Smaller text for the table */
+            }
+
+            .submission-container {
+                padding: 15px; /* Reduced padding on mobile */
+            }
+
+            button {
+                font-size: 14px; /* Smaller button text */
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px; /* Reduce padding for smaller screens */
+            }
+
+            h1 {
+                font-size: 22px; /* Even smaller heading on very small devices */
+            }
+
+            input[type="text"],
+            input[type="file"],
+            textarea {
+                padding: 8px; /* Smaller padding */
+            }
+
+            button {
+                padding: 8px; /* Smaller button padding */
+                font-size: 14px; /* Consistent button text size */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Homework Management</h1>
+
+    <!-- Homework Listing Table -->
+    <table id="schoolwork-table">
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Document</th>
+        </tr>
+        <tbody id="schoolwork-tbody"></tbody>
+    </table>
+
+    <!-- Homework Submission Form -->
+    <div class="submission-container">
+        <h2>Submit Your Homework</h2>
+        <form id="homeworkForm">
+            <label for="homeworkTitle">Homework Title:</label>
+            <input type="text" id="homeworkTitle" required>
+
+            <label for="homeworkDescription">Description:</label>
+            <textarea id="homeworkDescription" rows="5" required></textarea>
+
+            <label for="homeworkFile">Upload File:</label>
+            <input type="file" id="homeworkFile" accept=".pdf,.doc,.docx,.txt" required>
+
+            <button type="submit">Submit Homework</button>
+        </form>
+        <div class="success-message" id="successMessage" style="display:none;"></div>
+    </div>
+
+    <script>
+        // Mock data (replace with actual data fetching)
+        const schoolworkData = [
+            { id: 1, title: "Math Homework", description: "Solve math problems", document: "math_homework.pdf" },
+            { id: 2, title: "Science Project", description: "Research science topic", document: "science_project.docx" },
+            { id: 3, title: "English Essay", description: "Write English essay", document: "english_essay.docx" }
+        ];
+
+        // Function to fetch schoolwork data (replace with API/AJAX call)
+        async function fetchSchoolwork() {
+            return schoolworkData; // Replace with actual data
+        }
+
+        // Render schoolwork table
+        async function renderSchoolwork() {
+            const schoolworkTbody = document.getElementById('schoolwork-tbody');
+            const schoolwork = await fetchSchoolwork();
+
+            if (schoolwork.length > 0) {
+                schoolwork.forEach(schoolworkItem => {
+                    const html = `
+                    <tr>
+                        <td>${schoolworkItem.title}</td>
+                        <td>${schoolworkItem.description}</td>
+                        <td><a href='uploads/${schoolworkItem.document}' target='_blank'>Download</a></td>
+                    </tr>
+                `;
+                    schoolworkTbody.insertAdjacentHTML('beforeend', html);
+                });
+            } else {
+                schoolworkTbody.innerHTML = "<tr><td colspan='3'>No schoolwork posted</td></tr>";
+            }
+        }
+
+        // Handle homework submission
+        document.getElementById('homeworkForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Simulate form submission
+            const title = document.getElementById('homeworkTitle').value;
+            const description = document.getElementById('homeworkDescription').value;
+            const file = document.getElementById('homeworkFile').files[0];
+
+            // Process submission (this would normally involve an API call)
+            console.log('Homework Submitted:', { title, description, file });
+
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.innerText = "Homework submitted successfully!";
+            successMessage.style.display = 'block';
+
+            // Reset the form
+            document.getElementById('homeworkForm').reset();
+        });
+
+        // Initial rendering of schoolwork
+        renderSchoolwork();
+    </script>
+
+</body>
+
+</html>

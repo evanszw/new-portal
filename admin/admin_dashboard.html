@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.status {
+    font-weight: bold;
+}
+
+    </style>
+    <title>Admin - Update Fees</title>
+</head>
+<body>
+    <h1>Update Student Fees</h1>
+    <form id="update-fees-form">
+        <label for="student-name">Student Name:</label>
+        <input type="text" id="student-name" required>
+        
+        <label for="fees-paid">Fees Paid:</label>
+        <input type="number" id="fees-paid" required>
+        
+        <button type="submit">Update Fees</button>
+    </form>
+
+    <h2>Updated Fees Summary</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Total Fees</th>
+                <th>Fees Paid</th>
+                <th>Fees Owed</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="fee-table-body">
+            <!-- Fee rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('update-fees-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    
+    const studentName = document.getElementById('student-name').value;
+    const feesPaid = parseFloat(document.getElementById('fees-paid').value);
+
+    // Here we would typically update the database and then fetch the updated fees
+    // For demonstration, let's assume totalFees is a fixed value (e.g., 1000)
+    const totalFees = 1000; // Example total fees
+    const feesOwed = totalFees - feesPaid;
+
+    addFeeRow(studentName, totalFees, feesPaid, feesOwed);
+    
+    // Reset form
+    this.reset();
+});
+
+function addFeeRow(name, total, paid, owed) {
+    const tableBody = document.getElementById('fee-table-body');
+    const newRow = document.createElement('tr');
+    
+    newRow.innerHTML = `
+        <td>${name}</td>
+        <td>${total.toFixed(2)}</td>
+        <td>${paid.toFixed(2)}</td>
+        <td>${owed.toFixed(2)}</td>
+        <td class="${paid < total / 2 ? 'red' : 'green'}">
+            ${paid < total / 2 ? 'Less than half paid, please pay full fees in time' : 'Thank you for your payment!'}
+        </td>
+    `;
+    
+    tableBody.appendChild(newRow);
+
+    // Simulating sending data to the student portal (You can replace this with actual data storage)
+    localStorage.setItem('studentName', name);
+    localStorage.setItem('totalFees', total);
+    localStorage.setItem('feesPaid', paid);
+    localStorage.setItem('feesOwed', owed);
+}
+
+    </script>
+</body>
+</html>

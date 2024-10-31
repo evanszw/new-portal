@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schoolwork</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #30bff8;
+}
+
+.schoolwork-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.schoolwork-table th, .schoolwork-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.schoolwork-table th {
+    background-color: #f2f2f2;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .schoolwork-table {
+        font-size: 14px;
+    }
+}
+
+
+</style>
+<h1>Schoolwork</h1>
+
+<div class="schoolwork-container" id="schoolwork-container"></div>
+
+<script>
+
+
+    // Mock data (replace with actual data fetching)
+const schoolworkData = [
+    { id: 1, title: "Math Homework", description: "Solve math problems", document: "math_homework.pdf" },
+    { id: 2, title: "Science Project", description: "Research science topic", document: "science_project.docx" },
+    { id: 3, title: "English Essay", description: "Write English essay", document: "english_essay.docx" }
+];
+
+// Function to fetch schoolwork data (replace with API/AJAX call)
+async function fetchSchoolwork() {
+    return schoolworkData; // Replace with actual data
+}
+
+// Render schoolwork table
+async function renderSchoolwork() {
+    const schoolworkContainer = document.getElementById('schoolwork-container');
+    const schoolwork = await fetchSchoolwork();
+
+    if (schoolwork.length > 0) {
+        const html = `
+            <table class="schoolwork-table">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Document</th>
+                </tr>
+                ${schoolwork.map(schoolworkItem => `
+                    <tr>
+                        <td>${schoolworkItem.title}</td>
+                        <td>${schoolworkItem.description}</td>
+                        <td><a href='uploads/${schoolworkItem.document}' target='_blank'>Download</a></td>
+                    </tr>
+                `).join('')}
+            </table>
+        `;
+        schoolworkContainer.innerHTML = html;
+    } else {
+        schoolworkContainer.innerHTML = "<p>No schoolwork posted</p>";
+    }
+}
+
+renderSchoolwork();
+</script>
+
+</body>
+</html>

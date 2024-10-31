@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Exam Results</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #fa0707;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #032B44;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 40px auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #032B44;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #00171D;
+}
+
+.results-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.results-table th, .results-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.results-table th {
+    background-color: #032B44;
+    color: white;
+}
+    </style>
+</head>
+<body>
+
+<h1>View Exam Results</h1>
+
+<form id="result-form">
+    <label for="student_name">Enter Your Child's Name:</label>
+    <input type="text" id="student_name" name="student_name" required>
+    <input type="submit" value="View Results">
+</form>
+
+<div class="results" id="results-container"></div>
+
+<script>
+    // Mock data 
+    const studentResults = {
+        "John Doe": {
+            "maths_score": 85,
+            "maths_comments": "Excellent",
+            "english_score": 90,
+            "english_comments": "Outstanding",
+            "shona_score": 78,
+            "shona_comments": "Good",
+            "general_paper_score": 92,
+            "general_paper_comments": "Exceptional"
+        },
+        "Jane Doe": {
+            "maths_score": 70,
+            "maths_comments": "Fair",
+            "english_score": 85,
+            "english_comments": "Very Good",
+            "shona_score": 65,
+            "shona_comments": "Pass",
+            "general_paper_score": 88,
+            "general_paper_comments": "Very Good"
+        }
+    };
+
+    document.getElementById('result-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const studentName = document.getElementById('student_name').value.trim();
+        const resultsContainer = document.getElementById('results-container');
+
+        if (studentName in studentResults) {
+            const results = studentResults[studentName];
+            const html = `
+                <h2>Results for ${studentName}</h2>
+                <table>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Score</th>
+                        <th>Comments</th>
+                    </tr>
+                    <tr>
+                        <td>Maths</td>
+                        <td>${results.maths_score}</td>
+                        <td>${results.maths_comments}</td>
+                    </tr>
+                    <tr>
+                        <td>English</td>
+                        <td>${results.english_score}</td>
+                        <td>${results.english_comments}</td>
+                    </tr>
+                    <tr>
+                        <td>Shona</td>
+                        <td>${results.shona_score}</td>
+                        <td>${results.shona_comments}</td>
+                    </tr>
+                    <tr>
+                        <td>General Paper</td>
+                        <td>${results.general_paper_score}</td>
+                        <td>${results.general_paper_comments}</td>
+                    </tr>
+                </table>
+            `;
+            resultsContainer.innerHTML = html;
+        } else {
+            resultsContainer.innerHTML = `<p>No results found for the student: ${studentName}</p>`;
+        }
+    });
+</script>
+
+</body>
+</html>
